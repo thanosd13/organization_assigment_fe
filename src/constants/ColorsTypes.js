@@ -1,0 +1,17 @@
+export const DARK_GRAY = "var(--dark-gray)";
+export const GRAY = "var(--gray)";
+export const LIGHT_GRAY = "var(--light-gray)";
+export const WHITE = "var(--white)";
+export const LIGHT_BLUE = "var(--light-blue)";
+export const CIEL = "var(--ciel)";
+export const BLUE_DARK = "var(--blue-dark)";
+export const BLUE = "var(--blue)";
+export const BLUE_DARK_light = "var(--blue-dark-light)";
+export const GREEN = "var(--green)";
+export const GREEN_LIGHT = "var(--green-light)";
+export const FULL_GREEN_LIGHT = "var(--full-green-light)";
+export const RED = "var(--red)";
+export const LIGHT_RED = "var(--light-red)";
+export const FULL_LIGHT_RED = "var(--full-light-red)";
+export const ORANGE = "var(--orange)";
+export const LIGHT_ORANGE = "var(--light-orange)";
