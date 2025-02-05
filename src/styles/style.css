@@ -17,3 +17,9 @@
   --orange: rgb(220, 173, 53);
   --light-orange: rgb(245, 195, 69);
 }
+
+.not-already-account:hover,
+.already-account:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

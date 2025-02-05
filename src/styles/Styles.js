@@ -20,7 +20,7 @@ export const CardContainer = styled.div`
 
 export const Layout = styled.div`
   width: 100%;
-  min-height: ${props => props.height || '100vh'};
+  min-height: ${props => props.height || '80vh'};
   padding: 2rem;
   background: ${LIGHT_GRAY};
 `;
