@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { CardContainer, Layout } from '../../styles/Styles';
+import { jwtDecode } from 'jwt-decode';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Logo } from '../../components/logo/Logo';
 import { Button } from 'react-bootstrap';
 import { CustomInputGroup } from '../../components/customInputGroup/CustomInputGroup';
 import { loginService } from '../../services/userService';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
   const [loginData, setLoginData] = useState({});
+  const navigate = useNavigate();
+  const { setAuthState } = useAuth();
+  // const { setAuthState } = useAuth();
 
   // set values in loginData object
   const handleFieldChange = event => {
@@ -20,8 +26,9 @@ export const LoginPage = () => {
   const login = () => {
     loginService(loginData)
       .then(response => {
-        console.log(response);
+        navigate('/home');
         localStorage.setItem('token', response.data.token);
+        setAuthState(jwtDecode(response.data.token));
       })
       .catch(error => {
         console.log(error);
@@ -56,7 +63,10 @@ export const LoginPage = () => {
         </div>
         <div className='d-flex flex-row align-items-center justify-content-start w-100 gap-4'>
           <Button onClick={login}>Σύνδεση</Button>
-          <span className='not-already-account'>
+          <span
+            onClick={() => navigate('/register')}
+            className='not-already-account'
+          >
             Δεν έχετε ενεργό λογαριασμό;
           </span>
         </div>

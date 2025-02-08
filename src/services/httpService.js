@@ -1,5 +1,5 @@
 // src/httpService.js
-import axios from "axios";
+import axios from 'axios';
 
 // Create an Axios instance
 export const http = axios.create({
@@ -8,10 +8,10 @@ export const http = axios.create({
 
 // Request interceptor
 http.interceptors.request.use(
-  (config) => {
+  config => {
     // Exclude login/register requests from adding the token
-    if (!config.url.includes("/login") && !config.url.includes("/register")) {
-      const token = localStorage.getItem("token");
+    if (!config.url.includes('/login') && !config.url.includes('/register')) {
+      const token = localStorage.getItem('token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -19,17 +19,17 @@ http.interceptors.request.use(
 
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   }
 );
 
 // Response interceptor
 http.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  (error) => {
+  error => {
     // Hide loader
     return Promise.reject(error);
   }

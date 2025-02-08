@@ -8,10 +8,10 @@ export const CustomInputGroup = ({
   name,
   type,
   onChange,
-  required,
+  classes,
 }) => {
   return (
-    <InputGroup className='mb-3'>
+    <InputGroup className={`mb-3 ${classes && classes}`}>
       <InputGroup.Text>
         <FontAwesomeIcon icon={icon} />
       </InputGroup.Text>
@@ -20,7 +20,6 @@ export const CustomInputGroup = ({
         name={name}
         type={type}
         onChange={onChange}
-        required={required}
       />
     </InputGroup>
   );
