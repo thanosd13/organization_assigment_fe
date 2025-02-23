@@ -3,6 +3,8 @@ import { GRAY, LIGHT_GRAY, WHITE } from '../constants/ColorsTypes';
 
 export const CardContainer = styled.div`
   min-height: ${props => props.height || '30rem'};
+  max-height: ${props => props.maxHeight || '30rem'};
+  overflow-y: ${props => (props.overflow === 'true' ? 'auto' : 'none')};
   background-color: ${props => props.background || WHITE};
   border: 1px solid ${props => props.borderColor || GRAY};
   border-radius: ${props => props.borderRadius || '0.75rem'};

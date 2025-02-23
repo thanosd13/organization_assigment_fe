@@ -3,10 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useAuth } from '../../contexts/AuthContext';
 
-export const CauseCard = ({ cause, showCauseModal, showConfirmationModal }) => {
+export const CauseCard = ({
+  cause,
+  showCauseModal,
+  showConfirmationModal,
+  goToChatPage,
+  goToCausePage,
+}) => {
   const { authState } = useAuth();
   return (
-    <Card style={{ width: '28rem' }}>
+    <Card style={{ width: '22rem' }}>
       <Card.Img
         variant='top'
         height='200rem'
@@ -17,7 +23,20 @@ export const CauseCard = ({ cause, showCauseModal, showConfirmationModal }) => {
         <Card.Text>{cause?.description}</Card.Text>
         <div className='d-flex align-items-center justify-content-end gap-2'>
           {authState?.role !== 'organization' && (
-            <Button variant='primary'>Περισσότερα...</Button>
+            <>
+              <Button
+                variant='secondary'
+                onClick={() => goToChatPage(cause?.userId)}
+              >
+                Μήνυμα
+              </Button>
+              <Button
+                variant='primary'
+                onClick={() => goToCausePage(cause?._id)}
+              >
+                Περισσότερα...
+              </Button>
+            </>
           )}
           {authState?.role === 'organization' && (
             <>

@@ -6,6 +6,7 @@ import { CauseModal } from '../../modals/causeModal/CauseModal';
 import {
   createService,
   deleteService,
+  getAllService,
   getByIdService,
   getByUserService,
   updateService,
@@ -13,6 +14,8 @@ import {
 import { useLoader } from '../../contexts/LoaderContext';
 import { useToast } from '../../contexts/ToastContext';
 import { ConfirmationModal } from '../../modals/confirmationModal/ConfirmationModal';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const HomePage = () => {
   const [showCauseModal, setShowCauseModal] = useState(false);
@@ -25,6 +28,8 @@ export const HomePage = () => {
   const [mode, setMode] = useState('');
   const { showLoader, hideLoader } = useLoader();
   const { showSuccess, showError } = useToast();
+  const { authState } = useAuth();
+  const navigate = useNavigate();
 
   // set values in causeData object
   const handleFieldChange = event => {
@@ -123,23 +128,49 @@ export const HomePage = () => {
     setShowConfirmationModal(true);
   };
 
+  // go to chat page
+  const goToChatPage = receiverId => {
+    navigate('/chat');
+  };
+
+  // go to cause page
+  const goToCausePage = id => {
+    navigate('/cause/' + id);
+  };
+
   // render every time when a cause updated or a cause added or a cause deleted
   useEffect(() => {
     // get causes
-    const getCausesByUser = () => {
-      showLoader();
-      getByUserService()
-        .then(response => {
-          setCauses(response.data);
-          hideLoader();
-        })
-        .catch(error => {
-          console.log(error);
-          hideLoader();
-        });
-    };
-    getCausesByUser();
-  }, [refreshFlag]);
+    if (authState?.role === 'user') {
+      const getAllCauses = () => {
+        showLoader();
+        getAllService()
+          .then(response => {
+            setCauses(response.data);
+            hideLoader();
+          })
+          .catch(error => {
+            console.log(error);
+            hideLoader();
+          });
+      };
+      getAllCauses();
+    } else if (authState?.role === 'organization') {
+      const getCausesByUser = () => {
+        showLoader();
+        getByUserService()
+          .then(response => {
+            setCauses(response.data);
+            hideLoader();
+          })
+          .catch(error => {
+            console.log(error);
+            hideLoader();
+          });
+      };
+      getCausesByUser();
+    }
+  }, [refreshFlag, authState?.role]);
 
   return (
     <Layout>
@@ -149,9 +180,14 @@ export const HomePage = () => {
           className='d-flex align-items-center justify-content-between w-100'
         >
           <h4>Εκδηλώσεις({causes?.length})</h4>
-          <Button variant='success' onClick={() => handleOpenCauseModal('add')}>
-            Προσθήκη
-          </Button>
+          {authState?.role === 'organization' && (
+            <Button
+              variant='success'
+              onClick={() => handleOpenCauseModal('add')}
+            >
+              Προσθήκη
+            </Button>
+          )}
         </Col>
       </Row>
       <Row>
@@ -161,6 +197,8 @@ export const HomePage = () => {
               cause={cause}
               showCauseModal={handleOpenCauseModal}
               showConfirmationModal={handleOpenConfirmation}
+              goToChatPage={goToChatPage}
+              goToCausePage={goToCausePage}
             />
           </Col>
         ))}

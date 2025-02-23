@@ -5,12 +5,36 @@ import {
   faRightFromBracket,
   faUser,
   faUsers,
-  faBookOpenReader,
 } from '@fortawesome/free-solid-svg-icons';
 import { Logo } from '../logo/Logo';
 import { BLUE_DARK, CIEL } from '../../constants/ColorsTypes';
+import { DropDownMenu } from '../dropDownMenu/DropDownMenu';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
+  const { logout, authState } = useAuth();
+  const navigate = useNavigate();
+  const getActions = () => [
+    {
+      id: 1,
+      name: 'Αρχική',
+      icon: faHome,
+      onClick: () => {
+        navigate('/home');
+      },
+    },
+    {
+      id: 3,
+      name: 'Αποσύνδεση',
+      icon: faRightFromBracket,
+      onClick: () => {
+        logout();
+        navigate('/login');
+      },
+    },
+  ];
+
   return (
     <Navbar
       className='d-flex justify-content-between px-md-4'
@@ -21,13 +45,20 @@ export const Header = () => {
         <Navbar.Brand className='brand'>
           <Logo style='mobile-logo' />
         </Navbar.Brand>
-        <div className='d-none d-lg-block'>
+        <div className='organization-container'>
           <h2 className='text-white'>#organization</h2>
         </div>
-        <div className='d-flex flex-row align-items-center justify-content-center'>
-          <h6 className='text-white mt-3'>name - surname</h6>
-          drop down menu
-        </div>
+        {localStorage.getItem('token') && (
+          <div className='d-flex flex-row align-items-center justify-content-center'>
+            <h6 className='text-white mt-3'>{authState?.username}</h6>
+            <DropDownMenu
+              size='2x'
+              icon={faUser}
+              actions={getActions()}
+              textColor={BLUE_DARK}
+            />
+          </div>
+        )}
       </div>
     </Navbar>
   );
