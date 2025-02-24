@@ -24,6 +24,10 @@ export const updateUserService = (body, userId) => {
   return http.put('/user/updateUser/' + userId, body);
 };
 
+export const updateStatusService = body => {
+  return http.put('/user/updateStatus', body);
+};
+
 export const deleteUserService = userId => {
   return http.delete('/user/deleteUser/' + userId);
 };

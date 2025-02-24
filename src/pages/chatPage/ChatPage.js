@@ -100,10 +100,16 @@ export const ChatPage = () => {
       </Row>
       <Row className='pt-4 d-flex align-items-center justify-content-center'>
         <Col className='d-flex flex-column gap-2' xs={6}>
-          <CardContainer maxHeight='20rem' width='75%' overflow='true'>
-            {users.map(user => (
-              <ChatCard key={user._id} user={user} setUser={handleUserSelect} />
-            ))}
+          <CardContainer maxHeight='20rem' width='75%'>
+            <div className='chat-users'>
+              {users.map(user => (
+                <ChatCard
+                  key={user._id}
+                  user={user}
+                  setUser={handleUserSelect}
+                />
+              ))}
+            </div>
           </CardContainer>
         </Col>
         <Col xs={6}>

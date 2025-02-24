@@ -20,6 +20,10 @@ export const getByIdService = id => {
   return http.get('/cause/getById/' + id);
 };
 
+export const requestJoinService = causeId => {
+  return http.put('/cause/requestJoin/' + causeId);
+};
+
 export const getAllService = () => {
   return http.get('/cause/getAllCauses');
 };

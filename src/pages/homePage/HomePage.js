@@ -9,6 +9,7 @@ import {
   getAllService,
   getByIdService,
   getByUserService,
+  requestJoinService,
   updateService,
 } from '../../services/causeService';
 import { useLoader } from '../../contexts/LoaderContext';
@@ -122,6 +123,21 @@ export const HomePage = () => {
     }
   };
 
+  // request to join in an organization
+  const requestJoin = causeId => {
+    showLoader();
+    requestJoinService(causeId)
+      .then(response => {
+        setRefreshFlag(prev => !prev);
+        showSuccess();
+        hideLoader();
+      })
+      .catch(error => {
+        showError();
+        hideLoader();
+      });
+  };
+
   // open confirmarion modal
   const handleOpenConfirmation = id => {
     setCauseId(id);
@@ -199,6 +215,7 @@ export const HomePage = () => {
               showConfirmationModal={handleOpenConfirmation}
               goToChatPage={goToChatPage}
               goToCausePage={goToCausePage}
+              requestJoin={requestJoin}
             />
           </Col>
         ))}

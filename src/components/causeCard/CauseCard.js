@@ -9,10 +9,11 @@ export const CauseCard = ({
   showConfirmationModal,
   goToChatPage,
   goToCausePage,
+  requestJoin,
 }) => {
   const { authState } = useAuth();
   return (
-    <Card style={{ width: '22rem' }}>
+    <Card style={{ width: '23rem' }}>
       <Card.Img
         variant='top'
         height='200rem'
@@ -24,8 +25,11 @@ export const CauseCard = ({
         <div className='d-flex align-items-center justify-content-end gap-2'>
           {authState?.role !== 'organization' && (
             <>
+              <Button variant='success' onClick={() => requestJoin(cause?._id)}>
+                Συμμετοχή
+              </Button>
               <Button
-                variant='secondary'
+                variant='warning'
                 onClick={() => goToChatPage(cause?.userId)}
               >
                 Μήνυμα
