@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import {
   faHome,
+  faMessage,
   faRightFromBracket,
   faUser,
   faUsers,
@@ -21,7 +22,15 @@ export const Header = () => {
       name: 'Αρχική',
       icon: faHome,
       onClick: () => {
-        navigate('/home');
+        navigate(authState?.role === 'admin' ? '/users' : '/home');
+      },
+    },
+    {
+      id: 2,
+      name: 'Μηνύματα',
+      icon: faMessage,
+      onClick: () => {
+        navigate('/chat');
       },
     },
     {
@@ -42,7 +51,12 @@ export const Header = () => {
       style={{ backgroundColor: CIEL, height: '13vh' }}
     >
       <div className='d-flex align-items-center justify-content-between w-100 px-md-4'>
-        <Navbar.Brand className='brand'>
+        <Navbar.Brand
+          className='brand logo'
+          onClick={() =>
+            navigate(authState?.role === 'admin' ? '/users' : '/home')
+          }
+        >
           <Logo style='mobile-logo' />
         </Navbar.Brand>
         <div className='organization-container'>

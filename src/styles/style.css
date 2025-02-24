@@ -58,6 +58,14 @@ button {
   border-radius: 1rem;
 }
 
+.logo:hover {
+  cursor: pointer;
+}
+
+.rdt_Table {
+  height: 35rem !important;
+}
+
 @media (max-width: 992px) {
   .organization-container {
     display: none;

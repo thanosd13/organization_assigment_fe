@@ -26,9 +26,15 @@ export const LoginPage = () => {
   const login = () => {
     loginService(loginData)
       .then(response => {
-        navigate('/home');
-        localStorage.setItem('token', response.data.token);
-        setAuthState(jwtDecode(response.data.token));
+        if (response.data.role === 'admin') {
+          navigate('/users');
+          localStorage.setItem('token', response.data.token);
+          setAuthState(jwtDecode(response.data.token));
+        } else {
+          navigate('/home');
+          localStorage.setItem('token', response.data.token);
+          setAuthState(jwtDecode(response.data.token));
+        }
       })
       .catch(error => {
         console.log(error);

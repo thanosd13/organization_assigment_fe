@@ -91,7 +91,7 @@ export const RegisterPage = () => {
       height='100vh'
       className='d-flex align-items-center justify-content-center'
     >
-      <CardContainer>
+      <CardContainer maxHeight='45rem'>
         <Logo
           width='100px'
           height='100px'
