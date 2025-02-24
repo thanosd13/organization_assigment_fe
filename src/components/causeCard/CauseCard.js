@@ -9,9 +9,11 @@ export const CauseCard = ({
   showConfirmationModal,
   goToChatPage,
   goToCausePage,
+  goToRequests,
   requestJoin,
 }) => {
   const { authState } = useAuth();
+
   return (
     <Card style={{ width: '23rem' }}>
       <Card.Img
@@ -25,18 +27,29 @@ export const CauseCard = ({
         <div className='d-flex align-items-center justify-content-end gap-2'>
           {authState?.role !== 'organization' && (
             <>
-              <Button variant='success' onClick={() => requestJoin(cause?._id)}>
-                Συμμετοχή
-              </Button>
-              <Button
-                variant='warning'
-                onClick={() => goToChatPage(cause?.userId)}
-              >
+              {!cause?.status && (
+                <Button
+                  variant='success'
+                  onClick={() => requestJoin(cause?._id)}
+                >
+                  Συμμετοχή
+                </Button>
+              )}
+              {cause?.status === 'pending' ? (
+                <b>Υπό επεξεργασία</b>
+              ) : cause?.status === 'accepted' ? (
+                <b>Αποδεχτή</b>
+              ) : cause?.status === 'rejected' ? (
+                <b>Ακυρωμένη</b>
+              ) : (
+                ''
+              )}
+              <Button variant='warning' onClick={() => goToChatPage()}>
                 Μήνυμα
               </Button>
               <Button
                 variant='primary'
-                onClick={() => goToCausePage(cause?._id)}
+                onClick={() => goToCausePage(cause?._id || cause?.causeId)}
               >
                 Περισσότερα...
               </Button>
@@ -44,6 +57,12 @@ export const CauseCard = ({
           )}
           {authState?.role === 'organization' && (
             <>
+              <Button
+                variant='success'
+                onClick={() => goToRequests(cause?._id)}
+              >
+                Αιτήσεις
+              </Button>
               <Button
                 variant='warning'
                 onClick={() => showCauseModal('edit', cause?._id)}

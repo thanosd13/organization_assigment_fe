@@ -8,8 +8,12 @@ export const updateService = (id, body) => {
   return http.put('/cause/update/' + id, body);
 };
 
-export const deleteService = id => {
-  return http.delete('/cause/delete/' + id);
+export const updateStatusService = body => {
+  return http.put('/cause/updateStatus', body);
+};
+
+export const requestJoinService = causeId => {
+  return http.put('/cause/requestJoin/' + causeId);
 };
 
 export const getByUserService = () => {
@@ -20,10 +24,18 @@ export const getByIdService = id => {
   return http.get('/cause/getById/' + id);
 };
 
-export const requestJoinService = causeId => {
-  return http.put('/cause/requestJoin/' + causeId);
+export const getRequestedCausesFromUserService = () => {
+  return http.get('/cause/getRequestedCausesFromUser');
+};
+
+export const getUsersFromCauseService = causeId => {
+  return http.get('/cause/getUsersFromCause/' + causeId);
 };
 
 export const getAllService = () => {
   return http.get('/cause/getAllCauses');
+};
+
+export const deleteService = id => {
+  return http.delete('/cause/delete/' + id);
 };

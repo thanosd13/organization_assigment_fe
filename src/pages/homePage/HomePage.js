@@ -154,6 +154,11 @@ export const HomePage = () => {
     navigate('/cause/' + id);
   };
 
+  // go to requests
+  const goToRequests = id => {
+    navigate('/requestsOrg/' + id);
+  };
+
   // render every time when a cause updated or a cause added or a cause deleted
   useEffect(() => {
     // get causes
@@ -215,6 +220,7 @@ export const HomePage = () => {
               showConfirmationModal={handleOpenConfirmation}
               goToChatPage={goToChatPage}
               goToCausePage={goToCausePage}
+              goToRequests={goToRequests}
               requestJoin={requestJoin}
             />
           </Col>

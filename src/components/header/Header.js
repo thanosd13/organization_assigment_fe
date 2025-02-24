@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import {
+  faAdjust,
   faHome,
   faMessage,
   faRightFromBracket,
@@ -33,8 +34,16 @@ export const Header = () => {
         navigate('/chat');
       },
     },
-    {
+    authState?.role === 'user' && {
       id: 3,
+      name: 'Αιτήσεις',
+      icon: faAdjust,
+      onClick: () => {
+        navigate('/requests');
+      },
+    },
+    {
+      id: 4,
       name: 'Αποσύνδεση',
       icon: faRightFromBracket,
       onClick: () => {

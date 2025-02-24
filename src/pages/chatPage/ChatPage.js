@@ -94,7 +94,7 @@ export const ChatPage = () => {
   return (
     <Layout>
       <Row>
-        <span className='back-btn' onClick={() => navigate('/home')}>
+        <span className='back-btn' onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} size='2x' />
         </span>
       </Row>
